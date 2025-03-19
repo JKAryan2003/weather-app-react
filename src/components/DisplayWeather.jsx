@@ -1,7 +1,9 @@
 import React from 'react'
 import './DisplayWeather.css'
 
-const DisplayWeather = () => {
+const DisplayWeather = ({data}) => {
+  console.log(data.name);
+  
   return (
     <div>
       <h1 className='fw-bold fs-1 p-5'>MY WEATHER APP</h1>
@@ -11,20 +13,20 @@ const DisplayWeather = () => {
       </div>
 
       <div className='p-5'>
-        <p className='fw-semibold fs-2'>New York</p>
+        <p className='fw-semibold fs-2'>{data.name}</p>
         <p className='fs-5'>Wednesday 19 March</p>
       </div>
 
       <div className='row'>
-        <div className='d-flex col-md-6 border p-5'>
-          <i class="bi bi-cloud-fill fs-1"></i>
+        <div className='d-flex col-md-6 border temp'>
+          <i className="bi bi-cloud-fill" id='cloudIcon'></i>
           <div className='mx-5'>
-            <p className='fs-2'>5°</p>
+            <p id='temperature'>5°</p>
             <p className='fs-5'>Overcast Clouds</p>
           </div>
         </div>
 
-        <div className='row col-md-6 border p-5 fs-5'>
+        <div className='row col-md-6 border p-5 fs-5 rightDetails'>
           
           <div className="col-md-4">
             <div>

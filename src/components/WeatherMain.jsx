@@ -1,20 +1,32 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import DisplayWeather from './DisplayWeather'
+
 
 const WeatherMain = () => {
 
-  const url = "https://api.openweathermap.org/data/2.5/weather?q=bhubaneshwar&appid=753f10661e26a53cb54ef6fd4a1bd6f0"
+  const [data, setData] = useState("")
 
-  const fetchApi = async () => {
-    const data = await fetch(url)
-    const jsonData = await data.json()
-  }
+  useEffect(() => {
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=bhubaneshwar&appid=753f10661e26a53cb54ef6fd4a1bd6f0"
 
-  const data = fetchApi()
+    fetch(url).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      setData(data)
+    })
+
+  
+  }, [])
+  
 
   return (
     <>
-      <DisplayWeather />
+      <DisplayWeather data={data}/>
     </>
   )
 }
