@@ -2,14 +2,13 @@ import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import './Search.css'
 
-const Search = ({getPlace, input, setInput, search, setLan, setLon, lat, lon}) => {
+const Search = ({getPlace, input, setInput, search, setLan, setLon}) => {
 
   useEffect(() => {
     getPlace(input)
   }, [input])
-
+  
   const handleClick = (item) => { 
-    console.log(item);
     setLan(item.lat)
     setLon(item.lon)
   }
