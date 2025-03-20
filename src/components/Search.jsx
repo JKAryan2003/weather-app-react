@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import './Search.css'
 
-const Search = ({getPlace, input, setInput, search, setLan, setLon, setSearch}) => {
+const Search = ({getPlace, input, setInput, search, setLan, setLon, setSearch, name, setName}) => {
 
   useEffect(() => {
     getPlace(input)
@@ -13,6 +13,7 @@ const Search = ({getPlace, input, setInput, search, setLan, setLon, setSearch}) 
     setLon(item.lon)
     setInput("")
     setSearch([])
+    setName(item.name)
   }
 
   return (
