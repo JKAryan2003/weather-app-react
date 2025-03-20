@@ -1,11 +1,11 @@
 import React from 'react'
 import './DisplayWeather.css'
 
-const DisplayWeather = ({data}) => {
+const DisplayWeather = ({data,name}) => {
   return (
     <div>
       <div className='p-5'>
-        <p className='fw-semibold fs-2'>{data.name}</p>
+        <p className='fw-semibold fs-2'>{name}</p>
         <p className='fs-5'>Wednesday 19 March</p>
       </div>
 
@@ -47,6 +47,31 @@ const DisplayWeather = ({data}) => {
             </div>
           </div>
 
+        </div>
+
+        <h5 className='px-5 py-2'>Hourly Forecast</h5>
+        <div className='row'>
+          <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <div className='border p-5'>
+              <p>cloudy</p>
+              <i className="bi bi-cloud-fill"></i>
+              <p>35</p>
+            </div>
+          </div>
+          <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <div className='border p-5'>
+              <p>cloudy</p>
+              <i className="bi bi-cloud-fill"></i>
+              <p>35</p>
+            </div>
+          </div>
+          <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <div className='border p-5'>
+              <p>cloudy</p>
+              <i className="bi bi-cloud-fill"></i>
+              <p>35</p>
+            </div>
+          </div>
         </div>
 
       </div>

@@ -10,7 +10,9 @@ const WeatherMain = () => {
   const [input, setInput] = useState()
   const [lat, setLan] = useState("20.2602964")
   const [lon, setLon] = useState("85.8394521")
-  const [data, setData] = useState({name: "", temp: "", feelsLike: "", description: "", tempMin: "", tempMax: "", windSpeed: "", humidity: "", sunRise: "", sunSet: ""})
+  const [data, setData] = useState({temp: "", feelsLike: "", description: "", tempMin: "", tempMax: "", windSpeed: "", humidity: "", sunRise: "", sunSet: ""})
+  const [hourlyData, setHourlyData] = useState({})
+  const [name, setName] = useState("Bhubaneswar")
 
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=753f10661e26a53cb54ef6fd4a1bd6f0`
   
@@ -27,7 +29,6 @@ const WeatherMain = () => {
     let response = res.data
     return (
       {
-        name: response.name,
         temp: response.main.temp,
         feelsLike: response.main.feels_like,
         description: response.weather[0].description,
@@ -49,10 +50,24 @@ const WeatherMain = () => {
     )
   }
 
+  const hourUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=753f10661e26a53cb54ef6fd4a1bd6f0`
+
+  const getHourlyData = async () => {
+    await axios.get(hourUrl)
+    .then(response => {setHourlyData(response.data.list)}
+    )
+  }
+
+  useEffect(() => {
+    getHourlyData()
+  }, [lon])
+  
+  console.log(hourlyData);
+  
   return (
     <>
-      <Search getPlace={getPlace} input={input} setInput={setInput} search={search} setSearch={setSearch} setLan={setLan} setLon={setLon}/>
-      <DisplayWeather data={data}/>
+      <Search getPlace={getPlace} input={input} setInput={setInput} search={search} setSearch={setSearch} setLan={setLan} setLon={setLon} name={name} setName={setName}/>
+      <DisplayWeather data={data} name={name} setName={setName}/>
     </>
   )
 }
