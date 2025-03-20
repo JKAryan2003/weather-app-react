@@ -6,6 +6,9 @@ import Search from './Search'
 
 const WeatherMain = () => {
 
+  const [search, setSearch] = useState([])
+  const [input, setInput] = useState()
+  
   const [data, setData] = useState({name: "", temp: "", feelsLike: "", description: "", tempMin: "", tempMax: "", windSpeed: "", humidity: "", sunRise: "", sunSet: ""})
   const url = "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=753f10661e26a53cb54ef6fd4a1bd6f0"
   
@@ -20,8 +23,6 @@ const WeatherMain = () => {
 
   const filterData = (res) => {
     let response = res.data
-    console.log(response);
-    
     return (
       {
         name: response.name,
@@ -38,9 +39,20 @@ const WeatherMain = () => {
     )
   }
 
+  const placeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=5&appid=753f10661e26a53cb54ef6fd4a1bd6f0`
+
+  const getPlace = async () => {
+    await axios.get(placeUrl)
+    .then(response => {setSearch(response.data)}
+    )
+  }
+
+  console.log(search);
+  
+
   return (
     <>
-      <Search />
+      <Search getPlace={getPlace} input={input} setInput={setInput} search={search}/>
       <DisplayWeather data={data}/>
     </>
   )
