@@ -51,7 +51,7 @@ const WeatherMain = () => {
 
   return (
     <>
-      <Search getPlace={getPlace} input={input} setInput={setInput} search={search} setLan={setLan} setLon={setLon}/>
+      <Search getPlace={getPlace} input={input} setInput={setInput} search={search} setSearch={setSearch} setLan={setLan} setLon={setLon}/>
       <DisplayWeather data={data}/>
     </>
   )
