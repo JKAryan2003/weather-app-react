@@ -2,12 +2,17 @@ import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import './Search.css'
 
-const Search = ({getPlace, input, setInput, search}) => {
-  
+const Search = ({getPlace, input, setInput, search, setLan, setLon, lat, lon}) => {
 
   useEffect(() => {
     getPlace(input)
   }, [input])
+
+  const handleClick = (item) => { 
+    console.log(item);
+    setLan(item.lat)
+    setLon(item.lon)
+  }
 
   return (
     <>
@@ -16,7 +21,7 @@ const Search = ({getPlace, input, setInput, search}) => {
         <input type="text" placeholder='search city' value={input} onChange={(e) => setInput(e.target.value)}/>
         <div className='bg-body-tertiary w-25 text-center search'>
           {search.map ((item) => 
-            <li>{item.name + " " + item.state + " " + item.country }</li>
+            <li onClick={() => handleClick(item)}>{item.name + " " + item.state + " " + item.country }</li>
           )}
         </div>
       </div>
