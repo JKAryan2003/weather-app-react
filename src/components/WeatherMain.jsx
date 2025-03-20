@@ -1,6 +1,7 @@
 import React, { useEffect,useState } from 'react'
 import DisplayWeather from './DisplayWeather'
 import axios from 'axios'
+import Search from './Search'
 
 
 const WeatherMain = () => {
@@ -39,6 +40,7 @@ const WeatherMain = () => {
 
   return (
     <>
+      <Search />
       <DisplayWeather data={data}/>
     </>
   )
