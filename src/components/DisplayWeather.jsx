@@ -2,8 +2,6 @@ import React from 'react'
 import './DisplayWeather.css'
 
 const DisplayWeather = ({data}) => {
-  console.log(data.name);
-  
   return (
     <div>
       <h1 className='fw-bold fs-1 p-5'>MY WEATHER APP</h1>
@@ -18,28 +16,28 @@ const DisplayWeather = ({data}) => {
       </div>
 
       <div className='row'>
-        <div className='d-flex col-md-6 border temp'>
+        <div className='d-flex col-md-6 temp'>
           <i className="bi bi-cloud-fill" id='cloudIcon'></i>
           <div className='mx-5'>
-            <p id='temperature'>5°</p>
-            <p className='fs-5'>Overcast Clouds</p>
+            <p id='temperature'>{(data?.main?.temp - 273).toFixed(2)}°</p>
+            <p className='fs-5'></p>
           </div>
         </div>
 
-        <div className='row col-md-6 border p-5 fs-5 rightDetails'>
+        <div className='row col-md-6 p-5 fs-5 rightDetails'>
           
           <div className="col-md-4">
             <div>
               <p>6°</p>
-              <p>High</p>
+              <p>{(data?.main?.temp_max - 273).toFixed(3)}</p>
               <p>3°</p>
-              <p>Low</p>
+              <p>{(data?.main?.temp_min - 273).toFixed(3)}</p>
             </div>
           </div>
 
           <div className="col-md-4">
             <div>
-              <p>3.1mph</p>
+              <p>{data?.wind?.speed}mph</p>
               <p>Wind</p>
               <p>70%</p>
               <p>Rain</p>
