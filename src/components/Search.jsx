@@ -2,22 +2,24 @@ import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import './Search.css'
 
-const Search = ({getPlace, input, setInput, search, setLan, setLon}) => {
+const Search = ({getPlace, input, setInput, search, setLan, setLon, setSearch}) => {
 
   useEffect(() => {
     getPlace(input)
   }, [input])
   
-  const handleClick = (item) => { 
+  const handleClick = (item) => {
     setLan(item.lat)
     setLon(item.lon)
+    setInput("")
+    setSearch([])
   }
 
   return (
     <>
       <h1 className='fw-bold fs-1 p-5 text-center'>MY WEATHER APP</h1>
       <div className='text-center'>
-        <input type="text" placeholder='search city' value={input} onChange={(e) => setInput(e.target.value)}/>
+        <input type="text" placeholder='search city' value={input} onChange={(e) => setInput(e.target.value)} className='px-5 rounded py-1'/>
         <div className='bg-body-tertiary w-25 text-center search'>
           {search.map ((item) => 
             <li onClick={() => handleClick(item)}>{item.name + " " + item.state + " " + item.country }</li>

@@ -11,13 +11,9 @@
 }
 
 #temperature {
-  font-size: 180px;
-}
-
-#cloudIcon {
   font-size: 150px;
 }
 
-.rightDetails {
-  opacity: 5;
+#cloudIcon {
+  font-size: 120px;
 }
