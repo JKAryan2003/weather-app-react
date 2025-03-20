@@ -4,12 +4,6 @@ import './DisplayWeather.css'
 const DisplayWeather = ({data}) => {
   return (
     <div>
-      <h1 className='fw-bold fs-1 p-5 text-center'>MY WEATHER APP</h1>
-
-      <div className='text-center'>
-        <input type="text" placeholder='search city'/>
-      </div>
-
       <div className='p-5'>
         <p className='fw-semibold fs-2'>{data.name}</p>
         <p className='fs-5'>Wednesday 19 March</p>
