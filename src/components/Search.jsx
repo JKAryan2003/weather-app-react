@@ -19,13 +19,19 @@ const Search = ({getPlace, input, setInput, search, setLan, setLon, setSearch, n
   return (
     <>
       <h1 className='fw-bold fs-1 p-5 text-center'>MY WEATHER APP</h1>
-      <div className='text-center'>
+      <div className='text-center d-flex flex-column justify-content-center align-items-center'>
         <input type="text" placeholder='search city' value={input} onChange={(e) => setInput(e.target.value)} className='px-5 rounded py-1'/>
-        <div className='bg-body-tertiary w-25 text-center search'>
-          {search.map ((item) => 
-            <li onClick={() => handleClick(item)}>{item.name + " " + item.state + " " + item.country }</li>
-          )}
-        </div>
+        {search.map ((item) => 
+          <div onClick={() => handleClick(item)} className='searchDiv d-flex justify-content-between px-4 py-2'>
+            <div>
+              {item.name}
+            </div>
+            <div>
+              {item.state + " "}
+              {item.country}
+            </div>
+          </div>
+        )}
       </div>
     </>
   )
