@@ -1,9 +1,9 @@
 import React from 'react'
 import './DisplayWeather.css'
 
-const DisplayWeather = ({data, name, hourlyData}) => {
-  console.log(hourlyData);
-  
+const DisplayWeather = ({data, name, hourlyData, dailyData}) => {
+  console.log(dailyData);
+  const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   return (
     <div>
       <div className='p-5'>
@@ -51,20 +51,39 @@ const DisplayWeather = ({data, name, hourlyData}) => {
 
         </div>
 
-        <h5 className='px-5 py-2'>Hourly Forecast</h5>
         <div className='row'>
-          {hourlyData.map((data) => 
-            <div className="col-md-1 d-flex flex-column justify-content-center align-items-center">
-              <div className='border p-5'>
-                <p>{data.time}</p>
-                <p>{data.description}</p>
-                <i className="bi bi-cloud-fill"></i>
-                <p>{(data.temp - 273).toFixed(3)}°</p>
-              </div>
+          <div className='col-md-6'>
+            <h5 className='px-5 py-2'>Hourly Forecast</h5>
+            <div className='row'>
+              {hourlyData.map((data) => 
+                <div className="col-md-1 d-flex flex-column justify-content-center align-items-center card">
+                  <div className='p-5'>
+                    <p>{data.time}</p>
+                    <p>{data.description}</p>
+                    <i className="bi bi-cloud-fill"></i>
+                    <p>{(data.temp - 273).toFixed(3)}°</p>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </div>
 
+          <div className='col-md-6'>
+            <h5 className='px-5 py-2'>Daily Forecast</h5>
+            <div className='row'>
+              {dailyData.map((data) => 
+                <div className="col-md-1 d-flex flex-column justify-content-center align-items-center card">
+                  <div className='p-5'>
+                    <p>{day[data.day]}</p>
+                    <p>{data.description}</p>
+                    <i className="bi bi-cloud-fill"></i>
+                    <p>{(data.temp - 273).toFixed(3)}°</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
