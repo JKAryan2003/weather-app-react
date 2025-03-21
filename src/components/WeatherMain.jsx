@@ -6,12 +6,20 @@ import Search from './Search'
 
 const WeatherMain = () => {
 
+  let current_date = new Date ()
+
   const [search, setSearch] = useState([])
+
   const [input, setInput] = useState()
+
   const [lat, setLan] = useState("20.2602964")
   const [lon, setLon] = useState("85.8394521")
+
   const [data, setData] = useState({temp: "", feelsLike: "", description: "", tempMin: "", tempMax: "", windSpeed: "", humidity: "", sunRise: "", sunSet: ""})
+
   const [hourlyData, setHourlyData] = useState([])
+  const [dailyData, setDailyData] = useState([])
+
   const [name, setName] = useState("Bhubaneswar")
 
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=753f10661e26a53cb54ef6fd4a1bd6f0`
@@ -64,27 +72,48 @@ const WeatherMain = () => {
 
   console.log(hourlyData);
   
-
   const filterHourData = (res) => {
-    let current_date = new Date ()
     const mapReturn = res.filter((item) => {
       if ((new Date(item.dt_txt) > current_date) && (new Date(item.dt_txt).getDate() === current_date.getDate()) ) {
         return true
       }
     })
-    const mapreturn = mapReturn.map((item)=>{
+    const hourDataReturn = mapReturn.map((item)=>{
       console.log(item);
-      return {temp: item?.main?.temp, description: item?.weather?.[0]?.description}
+      return {temp: item?.main?.temp, description: item?.weather?.[0]?.description, time: new Date(item?.dt_txt).toLocaleTimeString()}
     })
-    console.log(mapreturn);
     
-    return mapreturn
+    return hourDataReturn
+  }
+
+  const getDailyData = async () => {
+    await axios.get(hourUrl)
+    .then(response => setDailyData(filterDailyData(response.data.list))
+    )
+  }
+
+  useEffect(() => {
+    getDailyData()
+  }, [lon])
+
+  const filterDailyData = (res) => {
+    const mapReturn = res.filter((item) => {
+      if ((new Date(item.dt_txt) >= current_date) && (new Date(item.dt_txt).getHours() === "12") ) {
+        return true
+      }
+    })
+    const dailyDataReturn = mapReturn.map((item)=>{
+      console.log(item);
+      return {temp: item?.main?.temp, description: item?.weather?.[0]?.description, day: new Date(item?.dt_txt).getDay()}
+    })
+    
+    return dailyDataReturn
   }
   
   return (
     <>
       <Search getPlace={getPlace} input={input} setInput={setInput} search={search} setSearch={setSearch} setLan={setLan} setLon={setLon} name={name} setName={setName}/>
-      <DisplayWeather data={data} name={name} setName={setName} hourlyData={hourlyData}/>
+      <DisplayWeather data={data} name={name} setName={setName} hourlyData={hourlyData} dailyData={dailyData}/>
     </>
   )
 }

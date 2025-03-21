@@ -54,8 +54,9 @@ const DisplayWeather = ({data, name, hourlyData}) => {
         <h5 className='px-5 py-2'>Hourly Forecast</h5>
         <div className='row'>
           {hourlyData.map((data) => 
-            <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <div className="col-md-1 d-flex flex-column justify-content-center align-items-center">
               <div className='border p-5'>
+                <p>{data.time}</p>
                 <p>{data.description}</p>
                 <i className="bi bi-cloud-fill"></i>
                 <p>{(data.temp - 273).toFixed(3)}°</p>
