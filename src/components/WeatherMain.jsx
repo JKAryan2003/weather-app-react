@@ -69,8 +69,6 @@ const WeatherMain = () => {
   useEffect(() => {
     getHourlyData()
   }, [lon])
-
-  console.log(hourlyData);
   
   const filterHourData = (res) => {
     const mapReturn = res.filter((item) => {
@@ -79,7 +77,6 @@ const WeatherMain = () => {
       }
     })
     const hourDataReturn = mapReturn.map((item)=>{
-      console.log(item);
       return {temp: item?.main?.temp, description: item?.weather?.[0]?.description, time: new Date(item?.dt_txt).toLocaleTimeString()}
     })
     
@@ -91,25 +88,25 @@ const WeatherMain = () => {
     .then(response => setDailyData(filterDailyData(response.data.list))
     )
   }
-
+  
   useEffect(() => {
     getDailyData()
   }, [lon])
 
   const filterDailyData = (res) => {
     const mapReturn = res.filter((item) => {
-      if ((new Date(item.dt_txt) >= current_date) && (new Date(item.dt_txt).getHours() === "12") ) {
+      if ((new Date(item.dt_txt) >= current_date) && (new Date(item.dt_txt).getHours() === 12) ) {
         return true
       }
     })
     const dailyDataReturn = mapReturn.map((item)=>{
-      console.log(item);
+      console.log(item + "daly");
       return {temp: item?.main?.temp, description: item?.weather?.[0]?.description, day: new Date(item?.dt_txt).getDay()}
     })
     
     return dailyDataReturn
   }
-  
+
   return (
     <>
       <Search getPlace={getPlace} input={input} setInput={setInput} search={search} setSearch={setSearch} setLan={setLan} setLon={setLon} name={name} setName={setName}/>
